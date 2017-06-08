@@ -346,7 +346,7 @@ The binding SHALL use a digital signature algorithm or a cryptographic hash algo
 
 **Subject**: The natural person, device, system, unit, or Legal Entity identified in a Certificate as the Subject. The Subject is either the Subscriber or a device under the control and operation of the Subscriber.
 
-**Subject Identity Information**: Information that identifies the Certificate Subject. Subject Identity Information does not include a domain name listed in the subjectAltName extension or the Subject commonName field.
+**Subject Identity Information**: Information that identifies the Certificate Subject. Subject Identity Information does not include dnQualifier attributes in Distinguished Names, commonName attributes in Distinguished Names, dNSName Subject Alternative Names, iPAddress Subject Alternative Names, or SRVName Subject Alternative Names.
 
 **Subordinate CA**: A Certification Authority whose Certificate is signed by the Root CA, or another Subordinate CA.
 
@@ -1492,7 +1492,11 @@ i. Certificate Field: subject:organizationalUnitName
 Optional.
 The CA SHALL implement a process that prevents an OU attribute from including a name, DBA, tradename, trademark, address, location, or other text that refers to a specific natural person or Legal Entity unless the CA has verified this information in accordance with Section 3.2 and the Certificate also contains subject:organizationName, subject:givenName, subject:surname, subject:localityName, and subject:countryName attributes, also verified in accordance with Section 3.2.2.1.
 
-j. Other Subject Attributes
+j. Certificate Field: subject:dnQualifier
+Optional.
+Contents: This field is intended to be used when several certificates with the same subject can be partitioned into sets of related certificates.  Each related certificate set MAY have the same dnQualifier.  The CA may include a dnQualifier attribute with a zero length value to explicitly indicate that the CA makes no assertion about relationship with other certificates with the same subject.  The CA MAY set the dnQualifer value to the base64 encoding of the SHA1 hash of the subjectAlternativeName extnValue if it wishes to indicate grouping of certificates by alternative name set.
+
+k. Other Subject Attributes
 All other optional attributes, when present within the subject field, MUST contain information that has been verified by the CA. Optional attributes MUST NOT contain metadata such as '.', '-', and ' ' (i.e. space) characters, and/or any other indication that the value is absent, incomplete, or not applicable.
 
 #### 7.1.4.3. Subject Information - Root Certificates and Subordinate CA Certificates
