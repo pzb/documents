@@ -464,19 +464,13 @@ Locality (if required):
 
 _subject:jurisdictionLocalityName_ (OID:  1.3.6.1.4.1.311.60.2.1.1)
 
-ASN.1 - X520LocalityName as specified in RFC 5280
-
 State or province (if required):
 
  _subject:jurisdictionStateOrProvinceName_ (OID:  1.3.6.1.4.1.311.60.2.1.2)
 
-ASN.1 - X520StateOrProvinceName as specified in RFC 5280
-
 Country:
 
  _subject:jurisdictionCountryName_ (OID:  1.3.6.1.4.1.311.60.2.1.3)
-
-ASN.1 – _X520countryName_ as specified in RFC 5280
 
 **Required/Optional:**  Required
 
@@ -1685,5 +1679,57 @@ cabf-applicantSigningNonce OBJECT IDENTIFIER ::= { cabf 42 }
 
 7. On or before May 1, 2015, each CA MUST revoke all Certificates issued with the Subject Alternative Name extension or Common Name field that includes a Domain Name where .onion is in the right-most label of the Domain Name unless the Certificate was issued in compliance with this Appendix F.
 
+# Appendix G – Abstract Syntax Notation One module for EV certificates
 
+CABFSelectedAttributeTypes {joint‐iso‐itu‐t(2) international‐organizations(23) ca‐browser‐forum(140) module(4) cabfSelectedAttributeTypes(1) 1}
+DEFINITIONS ::=
+BEGIN
+
+-- EXPORTS All
+
+IMPORTS
+
+  -- from Rec. ITU-T X.501 | ISO/IEC 9594-2
+
+  selectedAttributeTypes, ID, ldap-enterprise
+    FROM UsefulDefinitions {joint-iso-itu-t ds(5) module(1) usefulDefinitions(0) 7}
+
+  -- from the X.500 series
+
+  ub-locality-name, ub-state-name
+    FROM UpperBounds {joint-iso-itu-t ds(5) module(1) upperBounds(10) 7}
+
+  -- from Rec. ITU-T X.520 | ISO/IEC 9594-6
+
+  DirectoryString{}, CountryName
+    FROM SelectedAttributeTypes selectedAttributeTypes;
+
+id-evat-jursidiction ID ::= {ldap-enterprise 311 ev(60) 2 1}
+
+id-evat-jursidiction-localityName ID ::= {id-evat-jursidiction 1}
+id-evat-jursidiction-stateOrProvinceName ID ::= {id-evat-jursidiction 2}
+id-evat-jursidiction-countryName ID ::= {id-evat-jursidiction 3}
+
+jurisdictionLocalityName ATTRIBUTE ::= {
+  SUBTYPE OF               name
+  WITH SYNTAX              DirectoryString{ub-locality-name}
+  LDAP-SYNTAX              directoryString.&id
+  LDAP-NAME                {"jurisdictionL"}
+  ID                       id-evat-jursidiction-localityName }
+
+jurisdictionStateOrProvinceName ATTRIBUTE ::= {
+  SUBTYPE OF               name
+  WITH SYNTAX              DirectoryString{ub-state-name}
+  LDAP-SYNTAX              directoryString.&id
+  LDAP-NAME                {"jurisdictionST"}
+  ID                       id-evat-jursidiction-stateOrProvinceName }
+
+jurisdictionCountryName ATTRIBUTE ::= {
+  SUBTYPE OF               name
+  WITH SYNTAX              CountryName
+  SINGLE VALUE             TRUE
+  LDAP-SYNTAX              countryString.&id
+  LDAP-NAME                {"jurisdictionC"}
+  ID                       id-evat-jursidiction-countryName }
+END
 
