@@ -248,7 +248,9 @@ No stipulation.
 
 **Domain Contact**: The Domain Name Registrant, technical contact, or administrative contract (or the equivalent under a ccTLD) as listed in the WHOIS record of the Base Domain Name or in a DNS SOA record.
 
-**Domain Name**: The label assigned to a node in the Domain Name System.
+**Domain Label**: An individual component of a Domain Name.
+
+**Domain Name**: A set of one or more Domain Labels separated by the U+002E FULL STOP character.
 
 **Domain Namespace**: The set of all possible Domain Names that are subordinate to a single node in the Domain Name System.
 
@@ -262,7 +264,7 @@ No stipulation.
 
 **Expiry Date**: The "Not After" date in a Certificate that defines the end of a Certificate's validity period.
 
-**Fully-Qualified Domain Name**: A Domain Name that includes the labels of all superior nodes in the Internet Domain Name System.
+**Fully-Qualified Domain Name**: A Domain Name that includes the Domain Labels of all superior nodes in the Internet Domain Name System.
 
 **Government Entity**: A government-operated legal entity, agency, department, ministry, branch, or similar element of the government of a country, or political subdivision within such country (such as a state, province, city, county, etc.).
 
@@ -372,7 +374,9 @@ The binding SHALL use a digital signature algorithm or a cryptographic hash algo
 
 **Validity Period**: The period of time measured from the date when the Certificate is issued until the Expiry Date.
 
-**Wildcard Certificate**: A Certificate containing an asterisk (\*) in the left-most position of any of the Subject Fully-Qualified Domain Names contained in the Certificate.
+**Wildcard Certificate**: A Certificate containing a Wildcard Domain Name in any of the Subject Alternative Names in the Certificate.
+
+**Wildcard Domain Name**: A Domain Name consisting of "\*." (U+002A ASTERISK, U+002E FULL STOP) prepended to a Fully-Qualified Domain Name.
 
 ### 1.6.2 Acronyms
 
@@ -576,10 +580,10 @@ For each IP Address listed in a Certificate, the CA SHALL confirm that, as of th
 Note: IPAddresses may be listed in Subscriber Certificates using IPAddress in the subjectAltName extension or in Subordinate CA Certificates via IPAddress in permittedSubtrees within the Name Constraints extension.
 
 
-#### 3.2.2.6 Wildcard Domain Validation
-Before issuing a certificate with a wildcard character (\*) in a CN or subjectAltName of type DNS-ID, the CA MUST establish and follow a documented procedure[^pubsuffix] that determines if the wildcard character occurs in the first label position to the left of a "registry-controlled" label or "public suffix" (e.g. "\*.com", "\*.co.uk", see RFC 6454 Section 8.2 for further explanation).
+#### 3.2.2.6 Wildcard Domain Name Validation
+Before issuing a Wildcard Certificate, the CA MUST establish and follow a documented procedure[^pubsuffix] that determines if the FQDN portion of any Wildcard Domain Name in the certificate is "registry-controlled" or is a "public suffix" (e.g. "\*.com", "\*.co.uk", see RFC 6454 Section 8.2 for further explanation).
 
-If a wildcard would fall within the label immediately to the left of a registry-controlled[^pubsuffix] or public suffix, CAs MUST refuse issuance unless the applicant proves its rightful control of the entire Domain Namespace. (e.g. CAs MUST NOT issue "\*.co.uk" or "\*.local", but MAY issue "\*.example.com" to Example Co.). Prior to September 1, 2013, each CA MUST revoke any valid certificate that does not comply with this section of the Requirements.
+If the FQDN portion of any Wildcard Domain Name in the certificate is "registry-controlled" or is a "public suffix", CAs MUST refuse issuance unless the applicant proves its rightful control of the entire Domain Namespace. (e.g. CAs MUST NOT issue "\*.co.uk" or "\*.local", but MAY issue "\*.example.com" to Example Co.).
 
 [^pubsuffix]: Determination of what is "registry-controlled" versus the registerable portion of a Country Code Top-Level Domain Namespace is not standardized at the time of writing and is not a property of the DNS itself. Current best practice is to consult a "public suffix list" such as <http://publicsuffix.org/> (PSL), and to retrieve a fresh copy regularly. If using the PSL, a CA SHOULD consult the "ICANN DOMAINS" section only, not the "PRIVATE DOMAINS" section. The PSL is updated regularly to contain new gTLDs delegated by ICANN, which are listed in the "ICANN DOMAINS" section. A CA is not prohibited from issuing a Wildcard Certificate to the Registrant of an entire gTLD, provided that control of the entire namespace is demonstrated in an appropriate way.
 
@@ -1442,16 +1446,16 @@ By issuing the Certificate, the CA represents that it followed the procedure set
 #### 7.1.4.2.1 Subject Alternative Name Extension
 Certificate Field: extensions:subjectAltName
 Required/Optional: Required
-Contents: This extension MUST contain at least one entry. Each entry MUST be either a dNSName containing the Fully-Qualified Domain Name or an iPAddress containing the IP address of a server. The CA MUST confirm that the Applicant controls the Fully-Qualified Domain Name or IP address or has been granted the right to use it by the Domain Name Registrant or IP address assignee, as appropriate.
+Contents: This extension MUST contain at least one entry. Each entry MUST be one of the following types:
 
-Wildcard FQDNs are permitted.
+1. dNSName: the entry MUST contain either a Fully-Qualified Domain Name or Wildcard Domain Name that the CA has validated in accordance with section 3.2.2.4. FQDNs and the FQDN portion of Wildcard DNs must comply with RFC 5280 section 4.2.1.6 with the following exception: underscore characters (U+005F LOW LINE) are allowed in Domain Labels such that replacing all underscores with hyphens (U+002D HYPHEN-MINUS) would result in a valid Domain Label.  CAs MUST NOT include Domain Labels which have hyphens as the third and fourth characters unless the first character is "x" (U+0058 LATIN CAPITAL LETTER X or U+0078 LATIN SMALL LETTER X), the second character is "n" (U+004E LATIN CAPITAL LETTER N or U+006E LATIN SMALL LETTER N), and the fifth and later characters are a valid Punycode string. CAs MUST additionally validate that Wildcard DNs are consistent with section 3.2.2.6.  The entry MUST NOT contain an Internal Name.
 
-As of the Effective Date of these Requirements, prior to the issuance of a Certificate with a subjectAlternativeName extension or Subject commonName field containing a Reserved IP Address or Internal Name, the CA SHALL notify the Applicant that the use of such Certificates has been deprecated by the CA / Browser Forum and that the practice will be eliminated by October 2016. Also as of the Effective Date, the CA SHALL NOT issue a certificate with an Expiry Date later than 1 November 2015 with a subjectAlternativeName extension or Subject commonName field containing a Reserved IP Address or Internal Name. Effective 1 October 2016, CAs SHALL revoke all unexpired Certificates whose subjectAlternativeName extension or Subject commonName field contains a Reserved IP Address or Internal Name.
+2. iPAddress: the entry MUST contain an IP address that the CA has validated in accordance with Section 3.2.2.5. The entry MUST NOT contain a Reserved IP Address.
 
 #### 7.1.4.2.2. Subject Distinguished Name Fields
 a. Certificate Field: subject:commonName (OID 2.5.4.3)
 Required/Optional: Deprecated (Discouraged, but not prohibited)
-Contents: If present, this field MUST contain a single IP address or Fully-Qualified Domain Name that is one of the values contained in the Certificate's subjectAltName extension (see Section 7.1.4.2.1).
+Contents: If present, this field MUST contain a single IP address or Fully-Qualified Domain Name that is one of the values contained in the Certificate's subjectAltName extension (see Section 7.1.4.2.1).  For FQDNs, it MUST contain only A-labels.  When including an IPv6 address in a common name, CAs MUST follow Section 4 and MAY follow Section 5 of RFC 5952.  When including an IPv4 address in a common name, CAs must encode the name as an IPv4Address as defined in RFC 3986.
 
 b. Certificate Field: subject:organizationName (OID 2.5.4.10)
 Optional.
