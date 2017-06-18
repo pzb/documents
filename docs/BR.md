@@ -334,11 +334,11 @@ The binding SHALL use a digital signature algorithm or a cryptographic hash algo
 
 **Requirements**: The Baseline Requirements found in this document.
 
-**Reserved IP Address**: An IPv4 or IPv6 address that the IANA has marked as reserved:
+**Reserved IP Address**: An IPv4 or IPv6 address that has "False" for Globally Reachable in either of the IANA Special-Purpose Address Registries:
 
-[http://www.iana.org/assignments/ipv4-address-space/ipv4-address-space.xml](http://www.iana.org/assignments/ipv4-address-space/ipv4-address-space.xml)
+[https://www.iana.org/assignments/iana-ipv4-special-registry/iana-ipv4-special-registry.xhtml](https://www.iana.org/assignments/iana-ipv4-special-registry/iana-ipv4-special-registry.xhtml)
 
-[http://www.iana.org/assignments/ipv6-address-space/ipv6-address-space.xml](http://www.iana.org/assignments/ipv6-address-space/ipv6-address-space.xml)
+[https://www.iana.org/assignments/iana-ipv6-special-registry/iana-ipv6-special-registry.xhtml](https://www.iana.org/assignments/iana-ipv6-special-registry/iana-ipv6-special-registry.xhtml)
 
 **Root CA**: The top level Certification Authority whose Root Certificate is distributed by Application Software Suppliers and that issues Subordinate CA Certificates.
 
