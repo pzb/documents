@@ -1455,7 +1455,7 @@ Contents: This extension MUST contain at least one entry. Each entry MUST be one
 #### 7.1.4.2.2. Subject Distinguished Name Fields
 a. Certificate Field: subject:commonName (OID 2.5.4.3)
 Required/Optional: Deprecated (Discouraged, but not prohibited)
-Contents: If present, this field MUST contain a single IP address or Fully-Qualified Domain Name that is one of the values contained in the Certificate's subjectAltName extension (see Section 7.1.4.2.1).  For FQDNs, it MUST contain only A-labels.  When including an IPv6 address in a common name, CAs MUST follow Section 4 and MAY follow Section 5 of RFC 5952.  When including an IPv4 address in a common name, CAs must encode the name as an IPv4Address as defined in RFC 3986.
+Contents: If present, this field MUST contain a single IP address, Fully-Qualified Domain Name, or Wildcard Domain Name that is one of the values contained in the Certificate's subjectAltName extension (see Section 7.1.4.2.1).  When including a Domain Name in a common name, CAs MUST only use LDH labels as defined in RFC 5890 and MUST NOT use U-labels.  When including an IPv6 address in a common name, CAs MUST use a format conforming to Section 4 or Section 5 of RFC 5952.  When including an IPv4 address in a common name, CAs MUST encode the name as an IPv4Address as defined in RFC 3986.
 
 b. Certificate Field: subject:organizationName (OID 2.5.4.10)
 Optional.
