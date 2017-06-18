@@ -334,7 +334,7 @@ The binding SHALL use a digital signature algorithm or a cryptographic hash algo
 
 **Requirements**: The Baseline Requirements found in this document.
 
-**Reserved IP Address**: An IPv4 or IPv6 address that has "False" for Globally Reachable in either of the IANA Special-Purpose Address Registries:
+**Reserved IP Address**: An IPv4 or IPv6 address that has "False" for Globally Reachable in either of the IANA Special-Purpose IP Address Registries:
 
 [https://www.iana.org/assignments/iana-ipv4-special-registry/iana-ipv4-special-registry.xhtml](https://www.iana.org/assignments/iana-ipv4-special-registry/iana-ipv4-special-registry.xhtml)
 
