@@ -250,7 +250,7 @@ No stipulation.
 
 **Domain Label**: An individual component of a Domain Name.
 
-**Domain Name**: A set of one or more Domain Labels separated by the U+002E FULL STOP character.
+**Domain Name**: A set of one or more Domain Labels, each separated by a single full stop character (".").
 
 **Domain Namespace**: The set of all possible Domain Names that are subordinate to a single node in the Domain Name System.
 
@@ -376,7 +376,7 @@ The binding SHALL use a digital signature algorithm or a cryptographic hash algo
 
 **Wildcard Certificate**: A Certificate containing a Wildcard Domain Name in any of the Subject Alternative Names in the Certificate.
 
-**Wildcard Domain Name**: A Domain Name consisting of "\*." (U+002A ASTERISK, U+002E FULL STOP) prepended to a Fully-Qualified Domain Name.
+**Wildcard Domain Name**: A Domain Name consisting of a single asterisk character ("\*") followed by a single full stop character (".") followed by a Fully-Qualified Domain Name.
 
 ### 1.6.2 Acronyms
 
@@ -1448,7 +1448,7 @@ Certificate Field: extensions:subjectAltName
 Required/Optional: Required
 Contents: This extension MUST contain at least one entry. Each entry MUST be one of the following types:
 
-1. dNSName: the entry MUST contain either a Fully-Qualified Domain Name or Wildcard Domain Name that the CA has validated in accordance with section 3.2.2.4. FQDNs and the FQDN portion of Wildcard DNs must comply with RFC 5280 section 4.2.1.6 with the following exception: underscore characters (U+005F LOW LINE) are allowed in Domain Labels such that replacing all underscores with hyphens (U+002D HYPHEN-MINUS) would result in a valid Domain Label.  CAs MUST NOT include Domain Labels which have hyphens as the third and fourth characters unless the first character is "x" (U+0058 LATIN CAPITAL LETTER X or U+0078 LATIN SMALL LETTER X), the second character is "n" (U+004E LATIN CAPITAL LETTER N or U+006E LATIN SMALL LETTER N), and the fifth and later characters are a valid Punycode string. CAs MUST additionally validate that Wildcard DNs are consistent with section 3.2.2.6.  The entry MUST NOT contain an Internal Name.
+1. dNSName: the entry MUST contain either a Fully-Qualified Domain Name or Wildcard Domain Name that the CA has validated in accordance with section 3.2.2.4. FQDNs and the FQDN portion of Wildcard DNs must comply with RFC 5280 section 4.2.1.6 with the following exception: underscore characters ("\_") are allowed in Domain Labels such that replacing all underscore characters with hyphen characters ("-") would result in a valid Domain Label.  CAs MUST NOT include Domain Labels which have hyphens as the third and fourth characters unless the first character is "x" or "X", the second character is "n" or "N", and the fifth and later characters are a valid Punycode string. CAs MUST additionally validate that Wildcard DNs are consistent with section 3.2.2.6.  The entry MUST NOT contain an Internal Name.
 
 2. iPAddress: the entry MUST contain an IP address that the CA has validated in accordance with Section 3.2.2.5. The entry MUST NOT contain a Reserved IP Address.
 
