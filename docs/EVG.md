@@ -1704,25 +1704,25 @@ IMPORTS
   DirectoryString{}, CountryName
     FROM SelectedAttributeTypes selectedAttributeTypes;
 
-id-evat-jursidiction ID ::= {ldap-enterprise 311 ev(60) 2 1}
+id-evat-jurisdiction ID ::= {ldap-enterprise 311 ev(60) 2 1}
 
-id-evat-jursidiction-localityName ID ::= {id-evat-jursidiction 1}
-id-evat-jursidiction-stateOrProvinceName ID ::= {id-evat-jursidiction 2}
-id-evat-jursidiction-countryName ID ::= {id-evat-jursidiction 3}
+id-evat-jurisdiction-localityName ID ::= {id-evat-jurisdiction 1}
+id-evat-jurisdiction-stateOrProvinceName ID ::= {id-evat-jurisdiction 2}
+id-evat-jurisdiction-countryName ID ::= {id-evat-jurisdiction 3}
 
 jurisdictionLocalityName ATTRIBUTE ::= {
   SUBTYPE OF               name
   WITH SYNTAX              DirectoryString{ub-locality-name}
   LDAP-SYNTAX              directoryString.&id
   LDAP-NAME                {"jurisdictionL"}
-  ID                       id-evat-jursidiction-localityName }
+  ID                       id-evat-jurisdiction-localityName }
 
 jurisdictionStateOrProvinceName ATTRIBUTE ::= {
   SUBTYPE OF               name
   WITH SYNTAX              DirectoryString{ub-state-name}
   LDAP-SYNTAX              directoryString.&id
   LDAP-NAME                {"jurisdictionST"}
-  ID                       id-evat-jursidiction-stateOrProvinceName }
+  ID                       id-evat-jurisdiction-stateOrProvinceName }
 
 jurisdictionCountryName ATTRIBUTE ::= {
   SUBTYPE OF               name
@@ -1730,6 +1730,6 @@ jurisdictionCountryName ATTRIBUTE ::= {
   SINGLE VALUE             TRUE
   LDAP-SYNTAX              countryString.&id
   LDAP-NAME                {"jurisdictionC"}
-  ID                       id-evat-jursidiction-countryName }
+  ID                       id-evat-jurisdiction-countryName }
 END
 
