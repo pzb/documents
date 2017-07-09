@@ -580,7 +580,7 @@ For each IP Address listed in a Certificate, the CA SHALL confirm that, as of th
 Note: IPAddresses may be listed in Subscriber Certificates using IPAddress in the subjectAltName extension or in Subordinate CA Certificates via IPAddress in permittedSubtrees within the Name Constraints extension.
 
 
-#### 3.2.2.6 Wildcard Domain Name Validation
+#### 3.2.2.6 Additional Validation for Wildcard Certifiates
 Before issuing a Wildcard Certificate, the CA MUST establish and follow a documented procedure[^pubsuffix] that determines if the FQDN portion of any Wildcard Domain Name in the certificate is "registry-controlled" or is a "public suffix" (e.g. "\*.com", "\*.co.uk", see RFC 6454 Section 8.2 for further explanation).
 
 If the FQDN portion of any Wildcard Domain Name in the certificate is "registry-controlled" or is a "public suffix", CAs MUST refuse issuance unless the applicant proves its rightful control of the entire Domain Namespace. (e.g. CAs MUST NOT issue "\*.co.uk" or "\*.local", but MAY issue "\*.example.com" to Example Co.).
